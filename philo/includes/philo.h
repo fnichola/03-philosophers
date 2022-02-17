@@ -6,7 +6,7 @@
 /*   By: fnichola <fnichola@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:11:04 by fnichola          #+#    #+#             */
-/*   Updated: 2022/02/17 15:29:18 by fnichola         ###   ########.fr       */
+/*   Updated: 2022/02/17 16:40:24 by fnichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct s_data {
 	int				time_to_sleep;
 	int				number_of_times_each_philosopher_must_eat;
 	pthread_mutex_t	*forks;
+	pthread_mutex_t	eating;
 }	t_data;
 
 typedef struct s_philo {

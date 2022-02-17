@@ -6,7 +6,7 @@
 /*   By: fnichola <fnichola@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 15:05:11 by fnichola          #+#    #+#             */
-/*   Updated: 2022/02/17 15:59:00 by fnichola         ###   ########.fr       */
+/*   Updated: 2022/02/17 16:42:23 by fnichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,22 +33,14 @@ t_bool	philo_is_dead(t_data *data, t_philo **philos)
 
 void	philo_eat(pthread_mutex_t *left_fork, pthread_mutex_t *right_fork, t_philo *philo)
 {
-	if (philo->ID % 2 == 0)
-	{
-		pthread_mutex_lock(right_fork);
-		printf("%d %d has taken a fork\n", get_timestamp_m(), philo->ID);
-		pthread_mutex_lock(left_fork);
-		printf("%d %d has taken a fork\n", get_timestamp_m(), philo->ID);
-	}
-	else 
-	{
-		pthread_mutex_lock(left_fork);
-		printf("%d %d has taken a fork\n", get_timestamp_m(), philo->ID);
-		pthread_mutex_lock(right_fork);
-		printf("%d %d has taken a fork\n", get_timestamp_m(), philo->ID);
-	}
+	pthread_mutex_lock(left_fork);
+	printf("%d %d has taken a fork\n", get_timestamp_m(), philo->ID);
+	pthread_mutex_lock(right_fork);
+	printf("%d %d has taken a fork\n", get_timestamp_m(), philo->ID);
+	pthread_mutex_lock(&philo->data->eating);
 	philo->last_meal_time = get_timestamp_m();
 	printf("%d %d is eating\n", get_timestamp_m(), philo->ID);
+	pthread_mutex_unlock(&philo->data->eating);
 	usleep(philo->data->time_to_eat * 1000);
 	pthread_mutex_unlock(left_fork);
 	pthread_mutex_unlock(right_fork);
@@ -78,6 +70,8 @@ void	*philo_thread(void *arg)
 		right_fork = &philo->data->forks[0];
 	else
 		right_fork = &philo->data->forks[philo->ID];
+	if (philo->ID % 2)
+		usleep(10 * 1000);
 	i = 0;
 	while (1)
 	{
