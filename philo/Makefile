@@ -6,7 +6,7 @@
 #    By: fnichola <fnichola@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/09 18:01:32 by fnichola          #+#    #+#              #
-#    Updated: 2022/02/16 17:18:27 by fnichola         ###   ########.fr        #
+#    Updated: 2022/02/17 15:29:40 by fnichola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,9 @@ CC = gcc
 CFLAGS = -Wall -Werror -Wextra -pthread
 
 SRCS = srcs/main.c \
-	srcs/ft_atoi.c
+	srcs/philo.c \
+	srcs/ft_atoi.c \
+	srcs/utilities.c
 
 ifdef WITH_BONUS
 endif
