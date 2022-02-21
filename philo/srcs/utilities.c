@@ -6,7 +6,7 @@
 /*   By: fnichola <fnichola@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 11:31:15 by fnichola          #+#    #+#             */
-/*   Updated: 2022/02/18 16:25:38 by fnichola         ###   ########.fr       */
+/*   Updated: 2022/02/21 15:06:19 by fnichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,19 @@ int	larger_of_two(int a, int b)
 		return (a);
 	else
 		return (b);
+}
+
+/**
+ * @brief A more precise sleep timer. usleep() is used only when there is extra
+ * time remaining to allow other threads a chance to execute.
+ * 
+ * @param wake_time unix time in milliseconds, function returns at this time.
+ */
+void	nap_timer(unsigned long wake_time)
+{
+	while (get_timestamp_m() < wake_time)
+	{
+		if (get_timestamp_m() < wake_time - 20)
+			usleep(10000);
+	}
 }

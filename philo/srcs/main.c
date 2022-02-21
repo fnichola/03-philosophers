@@ -6,7 +6,7 @@
 /*   By: fnichola <fnichola@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 14:34:59 by fnichola          #+#    #+#             */
-/*   Updated: 2022/02/18 21:54:16 by fnichola         ###   ########.fr       */
+/*   Updated: 2022/02/21 15:21:26 by fnichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	init_data(int argc, char **argv, t_data *data)
 	data->time_to_die = ft_atoi(argv[2]);
 	data->time_to_eat = ft_atoi(argv[3]);
 	data->time_to_sleep = ft_atoi(argv[4]);
+	data->philo_died = FALSE;
 	if (argc == 6)
 		data->number_of_times_each_philosopher_must_eat = ft_atoi(argv[5]);
 	else
@@ -87,6 +88,8 @@ int	main(int argc, char **argv)
 {
 	t_data	data;
 	t_philo	*philos;
+	int		dead;
+	int		i;
 
 	if (argc != 5 && argc != 6)
 	{
@@ -102,8 +105,16 @@ int	main(int argc, char **argv)
 		return (EXIT_FAILURE);
 	while (1)
 	{
-		if (philo_is_dead(&data, &philos))
-			return (EXIT_SUCCESS);
+		dead = philo_is_dead(&data, &philos);
+		if (dead)
+		{
+			i = 0;
+			while (i < data.number_of_philosophers)
+			{
+				pthread_join(philos[i].thread, NULL);
+				i++;
+			}
+		}
 		usleep(1000);
 	}
 	return (EXIT_SUCCESS);
