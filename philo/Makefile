@@ -6,14 +6,14 @@
 #    By: fnichola <fnichola@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/09 18:01:32 by fnichola          #+#    #+#              #
-#    Updated: 2022/02/18 21:43:02 by fnichola         ###   ########.fr        #
+#    Updated: 2022/02/22 12:24:38 by fnichola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra -pthread -fsanitize=thread
+CFLAGS = -Wall -Werror -Wextra -pthread -fsanitize=thread -g
 
 SRCS = srcs/main.c \
 	srcs/philo.c \

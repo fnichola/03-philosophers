@@ -6,7 +6,7 @@
 /*   By: fnichola <fnichola@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 11:31:15 by fnichola          #+#    #+#             */
-/*   Updated: 2022/02/21 15:06:19 by fnichola         ###   ########.fr       */
+/*   Updated: 2022/02/22 19:08:23 by fnichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,6 @@ void	nap_timer(unsigned long wake_time)
 	while (get_timestamp_m() < wake_time)
 	{
 		if (get_timestamp_m() < wake_time - 20)
-			usleep(10000);
+			sleep(0);
 	}
 }
