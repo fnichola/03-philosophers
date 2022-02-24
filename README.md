@@ -68,24 +68,24 @@ Using a loop like this to repeatedly check the current time can significantly im
 ```
 void  my_sleep(unsigned long sleep_duration)
 {
-  unsigned long wake_time;
-
-  wake_time = get_timestamp_m() + sleep_duration;
-	while (get_timestamp_m() < wake_time)
-	{
-	}
+    unsigned long wake_time;
+    
+    wake_time = get_timestamp_m() + sleep_duration;
+    while (get_timestamp_m() < wake_time)
+    {
+    }
 }
 ```
 However, the _while_ loop hogs processor resources and causes other threads' execution to be delayed. By adding a short sleep during the loop other threads have a chance to start executing and the wakeup time is still fairly accurate. A 1 ms (1000 µs) sleep seems to work well:
 ```
 void  my_sleep(unsigned long sleep_duration)
 {
-  unsigned long wake_time;
+    unsigned long wake_time;
 
-  wake_time = get_timestamp_m() + sleep_duration;
-	while (get_timestamp_m() < wake_time)
+    wake_time = get_timestamp_m() + sleep_duration;
+    while (get_timestamp_m() < wake_time)
 	{
-    usleep(1000);
+        usleep(1000);
 	}
 }
 ```
