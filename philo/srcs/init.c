@@ -6,7 +6,7 @@
 /*   By: fnichola <fnichola@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 18:27:14 by fnichola          #+#    #+#             */
-/*   Updated: 2022/02/24 12:05:06 by fnichola         ###   ########.fr       */
+/*   Updated: 2022/02/24 17:44:38 by fnichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,18 @@ int	init_data(int argc, char **argv, t_data *data)
 	return (SUCCESS);
 }
 
+void	assign_forks(t_data *data, t_philo *philo)
+{
+
+	philo->left_fork = &data->forks[philo->id - 1];
+	if (data->nbr_of_philos == 1)
+		philo->right_fork = NULL;
+	else if (philo->id == data->nbr_of_philos)
+		philo->right_fork = &data->forks[0];
+	else
+		philo->right_fork = &data->forks[philo->id];
+}
+
 int	init_philos(t_data *data, t_philo **philos)
 {
 	int	i;
@@ -51,6 +63,7 @@ int	init_philos(t_data *data, t_philo **philos)
 		(*philos)[i].last_meal_time = data->start_time;
 		(*philos)[i].meal_count = 0;
 		(*philos)[i].finished_eating = FALSE;
+		assign_forks(data, &(*philos)[i]);
 		if ((i + 1) % 2)
 			(*philos)[i].next_meal_time = data->start_time;
 		else
@@ -79,36 +92,4 @@ int	init_mutexes(t_data *data, t_philo **philos)
 		i++;
 	}
 	return (SUCCESS);
-}
-
-int	create_threads(t_data *data, t_philo **philos)
-{
-	int		i;
-
-	i = 0;
-	while (i < data->nbr_of_philos)
-	{
-		if (pthread_create(&(*philos)[i].thread, NULL, \
-			philo_thread, &(*philos)[i]) != 0)
-			return (ERROR);
-		i++;
-	}
-	return (SUCCESS);
-}
-
-void	clean_up_threads(t_data *data, t_philo **philos)
-{
-	int		i;
-
-	i = 0;
-	while (i < data->nbr_of_philos)
-	{
-		pthread_join((*philos)[i].thread, NULL);
-		pthread_mutex_destroy(&data->forks[i]);
-		pthread_mutex_destroy(&(*philos)[i].eating_mtx);
-		i++;
-	}
-	pthread_mutex_destroy(&data->philo_died_mtx);
-	free(data->forks);
-	free(*philos);
 }

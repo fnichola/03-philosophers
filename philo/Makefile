@@ -6,7 +6,7 @@
 #    By: fnichola <fnichola@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/09 18:01:32 by fnichola          #+#    #+#              #
-#    Updated: 2022/02/24 12:22:55 by fnichola         ###   ########.fr        #
+#    Updated: 2022/02/24 17:43:12 by fnichola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ CFLAGS = -Wall -Werror -Wextra -pthread
 
 SRCS = srcs/main.c \
 	srcs/init.c \
+	srcs/init2.c \
 	srcs/philo.c \
 	srcs/philo2.c \
 	srcs/ft_atoll.c \

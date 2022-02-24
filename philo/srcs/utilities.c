@@ -6,7 +6,7 @@
 /*   By: fnichola <fnichola@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 11:31:15 by fnichola          #+#    #+#             */
-/*   Updated: 2022/02/24 11:27:50 by fnichola         ###   ########.fr       */
+/*   Updated: 2022/02/24 16:42:26 by fnichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	larger_of_two(int a, int b)
  */
 void	nap_timer(unsigned long wake_time)
 {
-	while (get_timestamp_m() < wake_time - 20)
+	while (get_timestamp_m() < wake_time)
 	{
 		usleep(1000);
 	}

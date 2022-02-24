@@ -6,7 +6,7 @@
 /*   By: fnichola <fnichola@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:11:04 by fnichola          #+#    #+#             */
-/*   Updated: 2022/02/24 11:46:07 by fnichola         ###   ########.fr       */
+/*   Updated: 2022/02/24 17:42:05 by fnichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ typedef struct s_data {
 typedef struct s_philo {
 	int				id;
 	pthread_t		thread;
+	pthread_mutex_t	*left_fork;
+	pthread_mutex_t	*right_fork;
 	unsigned long	last_meal_time;
 	pthread_mutex_t	eating_mtx;
 	unsigned long	next_meal_time;
@@ -49,6 +51,7 @@ typedef struct s_philo {
 }	t_philo;
 
 long long		ft_atoll(const char *str);
+int				alloc_memory(t_data *data, t_philo **philos);
 int				atoi_check(const char *str);
 int				init_mutexes(t_data *data, t_philo **philos);
 int				init_data(int argc, char **argv, t_data *data);

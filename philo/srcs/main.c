@@ -6,25 +6,11 @@
 /*   By: fnichola <fnichola@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 14:34:59 by fnichola          #+#    #+#             */
-/*   Updated: 2022/02/24 11:29:09 by fnichola         ###   ########.fr       */
+/*   Updated: 2022/02/24 17:43:30 by fnichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
-
-int	alloc_memory(t_data *data, t_philo **philos)
-{
-	data->forks = malloc(sizeof(pthread_mutex_t) * data->nbr_of_philos);
-	if (!data->forks)
-		return (ERROR);
-	*philos = malloc(sizeof(t_philo) * data->nbr_of_philos);
-	if (!*philos)
-	{
-		free(data->forks);
-		return (ERROR);
-	}
-	return (SUCCESS);
-}
 
 void	monitor_loop(t_data *data, t_philo **philos)
 {
