@@ -6,7 +6,7 @@
 /*   By: fnichola <fnichola@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 15:05:11 by fnichola          #+#    #+#             */
-/*   Updated: 2022/02/24 11:27:51 by fnichola         ###   ########.fr       */
+/*   Updated: 2022/02/24 12:20:29 by fnichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,15 +85,20 @@ void	*philo_thread(void *arg)
 
 	philo = (t_philo *)arg;
 	left_fork = &philo->data->forks[philo->id - 1];
-	if (philo->id == philo->data->nbr_of_philos)
+	if (philo->data->nbr_of_philos == 1)
+		right_fork = NULL;
+	else if (philo->id == philo->data->nbr_of_philos)
 		right_fork = &philo->data->forks[0];
 	else
 		right_fork = &philo->data->forks[philo->id];
 	while (1)
 	{
-		philo_think(philo);
-		philo_eat(left_fork, right_fork, philo);
-		philo_sleep(philo);
+		if (left_fork && right_fork)
+		{
+			philo_think(philo);
+			philo_eat(left_fork, right_fork, philo);
+			philo_sleep(philo);
+		}
 		if (philo_thread_is_finished(philo))
 			break ;
 	}
