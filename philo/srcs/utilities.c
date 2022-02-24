@@ -6,7 +6,7 @@
 /*   By: fnichola <fnichola@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 11:31:15 by fnichola          #+#    #+#             */
-/*   Updated: 2022/02/22 19:08:23 by fnichola         ###   ########.fr       */
+/*   Updated: 2022/02/24 11:27:50 by fnichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,16 @@ int	larger_of_two(int a, int b)
  */
 void	nap_timer(unsigned long wake_time)
 {
-	while (get_timestamp_m() < wake_time)
+	while (get_timestamp_m() < wake_time - 20)
 	{
-		if (get_timestamp_m() < wake_time - 20)
-			sleep(0);
+		usleep(1000);
 	}
+}
+
+void	print_log_message(t_philo *philo, char *message)
+{
+	pthread_mutex_lock(&philo->data->philo_died_mtx);
+	if (!philo->data->philo_died)
+		printf("%06lu %d %s\n", get_sim_time(philo->data), philo->id, message);
+	pthread_mutex_unlock(&philo->data->philo_died_mtx);
 }

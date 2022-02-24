@@ -6,7 +6,7 @@
 #    By: fnichola <fnichola@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/09 18:01:32 by fnichola          #+#    #+#              #
-#    Updated: 2022/02/22 12:24:38 by fnichola         ###   ########.fr        #
+#    Updated: 2022/02/24 11:47:36 by fnichola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,8 +16,10 @@ CC = gcc
 CFLAGS = -Wall -Werror -Wextra -pthread -fsanitize=thread -g
 
 SRCS = srcs/main.c \
+	srcs/init.c \
 	srcs/philo.c \
-	srcs/ft_atoi.c \
+	srcs/philo2.c \
+	srcs/ft_atoll.c \
 	srcs/utilities.c
 
 ifdef WITH_BONUS
