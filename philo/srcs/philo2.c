@@ -6,7 +6,7 @@
 /*   By: fnichola <fnichola@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 17:42:39 by fnichola          #+#    #+#             */
-/*   Updated: 2022/02/24 12:06:53 by fnichola         ###   ########.fr       */
+/*   Updated: 2022/02/26 22:03:30 by fnichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ t_bool	philo_is_dead(t_data *data, t_philo *philo)
 		printf("%06lu %d died\n", get_sim_time(data), philo->id);
 		data->philo_died = TRUE;
 		pthread_mutex_unlock(&data->philo_died_mtx);
-		pthread_mutex_unlock(&philo->eating_mtx);
 		return (TRUE);
 	}
 	else
@@ -32,23 +31,24 @@ t_bool	philo_monitor(t_data *data, t_philo **philos)
 {
 	int	i;
 	int	finished_philos;
+	t_bool	end_simulation;
 
+	end_simulation = FALSE;
 	i = 0;
 	finished_philos = 0;
 	while (i < data->nbr_of_philos)
 	{
 		pthread_mutex_lock(&(*philos)[i].eating_mtx);
 		if (philo_is_dead(data, &(*philos)[i]))
-			return (TRUE);
+			end_simulation = TRUE;
 		if ((*philos)[i].finished_eating)
 			finished_philos++;
 		pthread_mutex_unlock(&(*philos)[i].eating_mtx);
 		i++;
 	}
-	if (finished_philos == data->nbr_of_philos || data->philo_died)
-		return (TRUE);
-	else
-		return (FALSE);
+	if (finished_philos == data->nbr_of_philos)
+		end_simulation = TRUE;
+	return (end_simulation);
 }
 
 t_bool	philo_thread_is_finished(t_philo *philo)
