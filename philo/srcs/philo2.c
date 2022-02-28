@@ -6,7 +6,7 @@
 /*   By: fnichola <fnichola@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 17:42:39 by fnichola          #+#    #+#             */
-/*   Updated: 2022/02/28 16:09:08 by fnichola         ###   ########.fr       */
+/*   Updated: 2022/02/28 16:20:11 by fnichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,11 @@ bool	philo_monitor(t_data *data, t_philo **philos)
 	{
 		pthread_mutex_lock(&(*philos)[i].philo_mtx);
 		if (philo_is_dead(data, &(*philos)[i]))
+		{
 			end_simulation = true;
+			pthread_mutex_unlock(&(*philos)[i].philo_mtx);
+			break ;
+		}
 		if ((*philos)[i].finished_eating)
 			finished_philos++;
 		pthread_mutex_unlock(&(*philos)[i].philo_mtx);
