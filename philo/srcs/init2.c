@@ -6,7 +6,7 @@
 /*   By: fnichola <fnichola@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 17:41:14 by fnichola          #+#    #+#             */
-/*   Updated: 2022/02/28 15:11:38 by fnichola         ###   ########.fr       */
+/*   Updated: 2022/02/28 16:09:10 by fnichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	clean_up_threads(t_data *data, t_philo **philos)
 	i = 0;
 	while (i < data->nbr_of_philos)
 	{
-		pthread_mutex_destroy(&(*philos)[i].eating_mtx);
+		pthread_mutex_destroy(&(*philos)[i].philo_mtx);
 		pthread_mutex_destroy(&data->forks[i]);
 		i++;
 	}

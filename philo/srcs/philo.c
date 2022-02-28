@@ -6,7 +6,7 @@
 /*   By: fnichola <fnichola@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 15:05:11 by fnichola          #+#    #+#             */
-/*   Updated: 2022/02/24 17:47:53 by fnichola         ###   ########.fr       */
+/*   Updated: 2022/02/28 16:09:09 by fnichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	philo_eat(t_philo *philo)
 	unsigned long	current_time;
 
 	philo_take_forks(philo);
-	pthread_mutex_lock(&philo->eating_mtx);
+	pthread_mutex_lock(&philo->philo_mtx);
 	current_time = get_timestamp_m();
 	if (current_time - philo->last_meal_time < \
 		(unsigned long)philo->data->time_to_die)
@@ -44,15 +44,15 @@ static void	philo_eat(t_philo *philo)
 		philo->last_meal_time = current_time;
 		print_log_message(philo, "is eating");
 	}
-	pthread_mutex_unlock(&philo->eating_mtx);
+	pthread_mutex_unlock(&philo->philo_mtx);
 	nap_timer(philo->last_meal_time + philo->data->time_to_eat);
-	pthread_mutex_lock(&philo->eating_mtx);
+	pthread_mutex_lock(&philo->philo_mtx);
 	philo->meal_count++;
 	if (philo->data->nbr_of_times_each_must_eat \
 		&& philo->meal_count >= \
 		philo->data->nbr_of_times_each_must_eat)
-		philo->finished_eating = TRUE;
-	pthread_mutex_unlock(&philo->eating_mtx);
+		philo->finished_eating = true;
+	pthread_mutex_unlock(&philo->philo_mtx);
 	pthread_mutex_unlock(philo->left_fork);
 	pthread_mutex_unlock(philo->right_fork);
 }
