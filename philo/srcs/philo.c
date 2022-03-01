@@ -6,7 +6,7 @@
 /*   By: fnichola <fnichola@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 15:05:11 by fnichola          #+#    #+#             */
-/*   Updated: 2022/02/28 16:09:09 by fnichola         ###   ########.fr       */
+/*   Updated: 2022/03/01 19:25:10 by fnichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,10 @@ static void	philo_sleep(t_philo *philo)
 
 static void	philo_think(t_philo *philo)
 {
-	if (get_timestamp_m() < philo->next_meal_time - 10)
+	if (get_timestamp_m() < philo->next_meal_time - 2)
 	{
 		print_log_message(philo, "is thinking");
-		nap_timer(philo->next_meal_time - 10);
+		nap_timer(philo->next_meal_time - 2);
 	}
 	philo->next_meal_time += philo->data->time_between_meals;
 }
