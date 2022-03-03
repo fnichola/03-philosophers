@@ -6,7 +6,7 @@
 /*   By: fnichola <fnichola@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 18:27:14 by fnichola          #+#    #+#             */
-/*   Updated: 2022/02/28 16:09:11 by fnichola         ###   ########.fr       */
+/*   Updated: 2022/03/03 17:15:35 by fnichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ int	init_data(int argc, char **argv, t_data *data)
 	data->philo_died = false;
 	if (argc == 6)
 		data->nbr_of_times_each_must_eat = atoi_check(argv[5]);
+	if (data->nbr_of_times_each_must_eat == 0)
+		return (ERROR);
 	else
 		data->nbr_of_times_each_must_eat = 0;
 	if (data->nbr_of_philos % 2)

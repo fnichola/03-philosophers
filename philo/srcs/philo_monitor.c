@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo2.c                                           :+:      :+:    :+:   */
+/*   philo_monitor.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fnichola <fnichola@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 17:42:39 by fnichola          #+#    #+#             */
-/*   Updated: 2022/02/28 16:20:11 by fnichola         ###   ########.fr       */
+/*   Updated: 2022/03/03 17:30:11 by fnichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,22 @@ bool	philo_is_dead(t_data *data, t_philo *philo)
 	}
 	else
 		return (false);
+}
+
+bool	philo_thread_is_finished(t_philo *philo)
+{
+	bool	is_finished;
+
+	is_finished = false;
+	pthread_mutex_lock(&philo->data->philo_died_mtx);
+	if (philo->data->philo_died)
+		is_finished = true;
+	pthread_mutex_unlock(&philo->data->philo_died_mtx);
+	pthread_mutex_lock(&philo->philo_mtx);
+	if (philo->finished_eating)
+		is_finished = true;
+	pthread_mutex_unlock(&philo->philo_mtx);
+	return (is_finished);
 }
 
 bool	philo_monitor(t_data *data, t_philo **philos)
@@ -53,20 +69,4 @@ bool	philo_monitor(t_data *data, t_philo **philos)
 	if (finished_philos == data->nbr_of_philos)
 		end_simulation = true;
 	return (end_simulation);
-}
-
-bool	philo_thread_is_finished(t_philo *philo)
-{
-	bool	is_finished;
-
-	is_finished = false;
-	pthread_mutex_lock(&philo->data->philo_died_mtx);
-	if (philo->data->philo_died)
-		is_finished = true;
-	pthread_mutex_unlock(&philo->data->philo_died_mtx);
-	pthread_mutex_lock(&philo->philo_mtx);
-	if (philo->finished_eating)
-		is_finished = true;
-	pthread_mutex_unlock(&philo->philo_mtx);
-	return (is_finished);
 }
