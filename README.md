@@ -5,7 +5,7 @@ This project is a twist on the classic ["dining philosophers problem"](https://e
 
 <img width="294" alt="5-table" src="https://user-images.githubusercontent.com/11318028/155470096-3a2c9ad2-8216-49e1-be43-e6ff2b930c37.png">
 
-Several philosophers are siting around a table either eating, thinking, or sleeping. On the table is a large bowl of spaghetti, and there is a fork between each philosopher. In order to eat they must pick up two forks (on their left and right), and they will set down the forks when they have finished eating. Each philospher must try to eat again soon enough to avoid dying. They do not speak to each other, and they do not know when another philospher is hungry.
+Several philosophers are sitting around a table either eating, thinking, or sleeping. On the table is a large bowl of spaghetti, and there is a fork between each philosopher. In order to eat they must pick up two forks (on their left and right), and they will set down the forks when they have finished eating. Each philospher must try to eat again soon enough to avoid dying. They do not speak to each other, and they do not know when another philospher is hungry.
 
 In the program each philospher is represented by a POSIX thread and each fork is a mutex (to ensure it only be used by one thread at a time). The simulation parameters are defined by the following arguments to the program.
 
